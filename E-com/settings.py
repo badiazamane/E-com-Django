@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'LOCALLIBRARY.urls'
+ROOT_URLCONF = 'E-com.urls'
 
 TEMPLATES = [
     {
@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'LOCALLIBRARY.wsgi.application'
+WSGI_APPLICATION = 'E-com.wsgi.application'
 
 
 # Database
