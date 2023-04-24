@@ -10,6 +10,7 @@ from django.core.validators import RegexValidator
 
 class User(models.Model):
     """Model representing a User."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,help_text='Unique ID for users')
     name = models.CharField(
         max_length=100, help_text='Enter a User name (e.g. John Doe)')
     email = models.EmailField(max_length=50, unique=True)
@@ -20,7 +21,6 @@ class User(models.Model):
     location = models.CharField(
         max_length=100, help_text='Enter a User location (e.g. Stanislawa Popowskiego 1, LODZ, Poland)')
     zipcode = models.CharField(max_length=6, help_text='Enter a User location zipcode (e.g. 90-328)')
-    
     phone = models.IntegerField(max_length=20)
 
     def __str__(self):
@@ -29,12 +29,14 @@ class User(models.Model):
 
 class Product(models.Model):
     """Model representing a product."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,help_text='Unique ID for users')
     name = models.CharField(
         max_length=80, help_text='Enter the product name (e.g. book)')
     description = models.CharField(max_length=100)
     Price = models.IntegerField(help_text='Enter the price')
-
-
+    Seller_ID = models.ForeignKey('User', on_delete=models.RESTRICT)
+    subCategories_ID = models.ForeignKey('subCategories', on_delete=models.RESTRICT)
+    Categories_ID = models.ForeignKey('Categories', on_delete=models.RESTRICT)
     def __str__(self):
         """String for representing the Model object."""
         return self.name
@@ -42,14 +44,19 @@ class Product(models.Model):
 
 class Order(models.Model):
     """Model representing a product."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,help_text='Unique ID for users')
     Price = models.IntegerField(help_text='Enter the price')
-    #  ! order_date 
+    date_of_birth = models.DateField(null=True, blank=True)
+    buyer_ID = models.ForeignKey('User', on_delete=models.RESTRICT)
+    product_ID = models.ForeignKey('Product', on_delete=models.RESTRICT)
+
     def __str__(self):
         """String for representing the Model object."""
         return self.name
 
 class Categories(models.Model):
     """Model representing a product."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,help_text='Unique ID for users')
     name = models.CharField(
         max_length=80, help_text='Enter the category name (e.g. book)')
     description = models.CharField(max_length=100)
@@ -60,9 +67,11 @@ class Categories(models.Model):
 
 class subCategories(models.Model):
     """Model representing a product."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,help_text='Unique ID for users')
     name = models.CharField(
         max_length=80, help_text='Enter the subcategory name (e.g. book)')
     description = models.CharField(max_length=100)
+    Categories_ID = models.ForeignKey('Categories', on_delete=models.RESTRICT)
 
     def __str__(self):
         """String for representing the Model object."""
