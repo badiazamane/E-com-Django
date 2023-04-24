@@ -13,7 +13,7 @@ from django.utils import timezone
 
 class User(models.Model):
     """Model representing a User."""
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,help_text='Unique ID for users')
+    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,help_text='Unique ID for users')
     name = models.CharField(
         max_length=100, help_text='Enter a User name (e.g. John Doe)')
     email = models.EmailField(max_length=50, unique=True)
@@ -23,8 +23,7 @@ class User(models.Model):
     ])
     location = models.CharField(
         max_length=100, help_text='Enter a User location (e.g. Stanislawa Popowskiego 1, LODZ, Poland)')
-    zipcode = models.CharField(max_length=6, help_text='Enter a User location zipcode (e.g. 90-328)')
-    phone = models.IntegerField(max_length=20)
+    phone = models.IntegerField()
 
     def __str__(self):
         """String for representing the Model object."""
@@ -38,8 +37,8 @@ class Product(models.Model):
     description = models.CharField(max_length=100)
     Price = models.IntegerField(help_text='Enter the price')
     Seller_ID = models.ForeignKey('User', on_delete=models.RESTRICT)
-    subCategories_ID = models.ForeignKey('subCategories', on_delete=models.RESTRICT)
-    Categories_ID = models.ForeignKey('Categories', on_delete=models.RESTRICT)
+    subCategories_ID = models.ForeignKey('subCategory', on_delete=models.RESTRICT)
+    Categories_ID = models.ForeignKey('Category', on_delete=models.RESTRICT)
     created_date = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -59,7 +58,7 @@ class Order(models.Model):
         """String for representing the Model object."""
         return self.name
 
-class Categories(models.Model):
+class Category(models.Model):
     """Model representing a product."""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,help_text='Unique ID for Categories')
     name = models.CharField(
@@ -70,13 +69,13 @@ class Categories(models.Model):
         """String for representing the Model object."""
         return self.name
 
-class subCategories(models.Model):
+class subCategory(models.Model):
     """Model representing a product."""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,help_text='Unique ID for subCategories')
     name = models.CharField(
         max_length=80, help_text='Enter the subcategory name (e.g. book)')
     description = models.CharField(max_length=100)
-    Categories_ID = models.ForeignKey('Categories', on_delete=models.RESTRICT)
+    Categories_ID = models.ForeignKey('Category', on_delete=models.RESTRICT)
 
     def __str__(self):
         """String for representing the Model object."""

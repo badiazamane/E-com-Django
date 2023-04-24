@@ -1,13 +1,15 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import User
+from .models import User,Product,Order,Category,subCategory,Review
 
 
 # Register the admin class with the associated model
 admin.site.register(User)
-# admin.site.register(Book)
-# admin.site.register(Author)
-# admin.site.register(Genre)
-# admin.site.register(BookInstance)
-# admin.site.register(Language)
+admin.site.register(Product)
+admin.site.register(Order)
+admin.site.register(Category)
+admin.site.register(subCategory)
+admin.site.register(Review)
+
+
