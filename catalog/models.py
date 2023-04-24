@@ -13,7 +13,7 @@ from django.utils import timezone
 
 class User(models.Model):
     """Model representing a User."""
-    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False,help_text='Unique ID for users')
+    id = models.AutoField(primary_key=True)
     name = models.CharField(
         max_length=100, help_text='Enter a User name (e.g. John Doe)')
     email = models.EmailField(max_length=50, unique=True)
@@ -31,7 +31,7 @@ class User(models.Model):
 
 class Product(models.Model):
     """Model representing a product."""
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,help_text='Unique ID for Product')
+    id = models.AutoField(primary_key=True)
     name = models.CharField(
         max_length=80, help_text='Enter the product name (e.g. book)')
     description = models.CharField(max_length=100)
@@ -48,7 +48,7 @@ class Product(models.Model):
 
 class Order(models.Model):
     """Model representing a product."""
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,help_text='Unique ID for Order')
+    id = models.AutoField(primary_key=True)
     Price = models.IntegerField(help_text='Enter the price')
     buyer_ID = models.ForeignKey('User', on_delete=models.RESTRICT)
     product_ID = models.ForeignKey('Product', on_delete=models.RESTRICT)
@@ -71,7 +71,7 @@ class Category(models.Model):
 
 class subCategory(models.Model):
     """Model representing a product."""
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,help_text='Unique ID for subCategories')
+    id = models.AutoField(primary_key=True)
     name = models.CharField(
         max_length=80, help_text='Enter the subcategory name (e.g. book)')
     description = models.CharField(max_length=100)
@@ -82,7 +82,7 @@ class subCategory(models.Model):
         return self.name
 class Review(models.Model):
     """Model representing a product."""
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,help_text='Unique ID for review')
+    id = models.AutoField(primary_key=True)
     Rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     comment = models.CharField(
         max_length=200, help_text='comment')
