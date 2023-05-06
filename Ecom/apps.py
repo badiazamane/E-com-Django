@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class BadiConfig(AppConfig):
+class EcomConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'badi'
+    name = 'Ecom'

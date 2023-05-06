@@ -1,4 +1,4 @@
-from catalog.models import User
+from Ecom.models import User
 from django.shortcuts import render
 
 
