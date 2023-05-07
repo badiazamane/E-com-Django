@@ -5,7 +5,9 @@
 
 <ul>
   <p>Announcement</p>
-  <li>{{ Product.Name }}</li>
+  {% for product in object_list %}
+  <li>{{ product.name }}</li>
+  {% endfor %}
 </ul>
 
 {% endblock %}
