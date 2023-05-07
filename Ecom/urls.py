@@ -4,5 +4,6 @@ from Ecom.views import addAnnouncement
 
 
 urlpatterns = [
-    path('', index, name='index'),
-     path('product_list/', addAnnouncement.as_view(), name='product_list'),  ]
+    path("", index, name="index"),
+    path("product_list/", addAnnouncement.as_view(), name="product_list"),
+]
