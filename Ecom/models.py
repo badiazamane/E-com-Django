@@ -33,7 +33,7 @@ class Product(models.Model):
     """Model representing a product."""
     id = models.AutoField(primary_key=True)
     name = models.CharField(
-        max_length=80, help_text='Enter the product name (e.g. book)')
+        max_length=80, help_text='Enter the product name (e.g. Phone)')
     description = models.CharField(max_length=100)
     Price = models.IntegerField(help_text='Enter the price')
     Seller_ID = models.ForeignKey('User', on_delete=models.RESTRICT)
