@@ -2,31 +2,102 @@
 <!-- Add additional CSS in static file -->
 
 {% block content %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <div class="container">
   <div class="row">
     <div class="col-1">
-      <i class="fas fa-tshirt fa-3x text-primary"></i>
+      <i id="tshirt" class="fas fa-tshirt fa-3x text-primary"></i>
+      <ul id="tshirt-list" style="display: none">
+        <li><a href="#">Men's Clothing</a></li>
+        <li><a href="#">Women's Clothing</a></li>
+        <li><a href="#">Kids' Clothing</a></li>
+        <li><a href="#">Shoes & Footwear</a></li>
+        <li><a href="#">Accessories</a></li>
+        <li><a href="#">Activewear</a></li>
+      </ul>
     </div>
     <div class="col-1">
-      <i class="fas fa-shoe-prints fa-3x text-danger"></i>
+      <i id="mobile" class="fas fa-mobile-alt fa-3x text-danger"></i>
+      <ul id="mobile-list" style="display: none">
+        <!-- Electronics -->
+        <li><a href="#">Smartphones & Tablets</a></li>
+        <li><a href="#">Computers & Laptops</a></li>
+        <li><a href="#">Audio & Headphones</a></li>
+        <li><a href="#">Cameras & Photography</a></li>
+        <li><a href="#">Gaming Consoles</a></li>
+        <li><a href="#">Home Electronics</a></li>
+      </ul>
     </div>
     <div class="col-1">
-      <i class="fas fa-mobile-alt fa-3x text-success"></i>
+      <i id="laptop" class="fas fa-laptop fa-3x text-success"></i>
+      <ul id="laptop-list" style="display: none">
+        <!-- Laptops -->
+        <li><a href="#">Gaming Laptops</a></li>
+        <li><a href="#">Ultrabooks</a></li>
+        <li><a href="#">2-in-1 Laptops</a></li>
+        <li><a href="#">Business Laptops</a></li>
+        <li><a href="#">Student Laptops</a></li>
+        <li><a href="#">Workstation Laptops</a></li>
+      </ul>
     </div>
     <div class="col-1">
-      <i class="fas fa-laptop fa-3x text-warning"></i>
+      <i id="book" class="fas fa-book fa-3x text-warning"></i>
+      <ul id="book-list" style="display: none">
+        <!-- Books -->
+        <li><a href="#">Fiction</a></li>
+        <li><a href="#">Non-Fiction</a></li>
+        <li><a href="#">Self-Help</a></li>
+        <li><a href="#">Educational</a></li>
+        <li><a href="#">Biographies</a></li>
+        <li><a href="#">Children's Books</a></li>
+      </ul>
     </div>
     <div class="col-1">
-      <i class="fas fa-book fa-3x text-info"></i>
+      <i id="home" class="fas fa-home fa-3x text-info"></i>
+      <ul id="home-list" style="display: none">
+        <!-- Home Decor -->
+        <li><a href="#">Wall Art & Paintings</a></li>
+        <li><a href="#">Decorative Accents</a></li>
+        <li><a href="#">Lighting</a></li>
+        <li><a href="#">Furniture</a></li>
+        <li><a href="#">Rugs & Carpets</a></li>
+        <li><a href="#">Mirrors</a></li>
+      </ul>
     </div>
     <div class="col-1">
-      <i class="fas fa-home fa-3x text-primary"></i>
+      <i id="car" class="fas fa-car fa-3x text-primary"></i>
+      <ul id="car-list" style="display: none">
+        <!-- Automotive -->
+        <li><a href="#">Car Accessories</a></li>
+        <li><a href="#">Exterior Parts</a></li>
+        <li><a href="#">Interior Parts</a></li>
+        <li><a href="#">Car Care Products</a></li>
+        <li><a href="#">Electronics & Gadgets</a></li>
+        <li><a href="#">Tools & Equipment</a></li>
+      </ul>
     </div>
     <div class="col-1">
-      <i class="fas fa-gamepad fa-3x text-danger"></i>
+      <i id="heartbeat" class="fas fa-heartbeat fa-3x text-danger"></i>
+      <ul id="heartbeat-list" style="display: none">
+        <!-- Health & Fitness -->
+        <li><a href="#">Fitness Equipment</a></li>
+        <li><a href="#">Vitamins & Supplements</a></li>
+        <li><a href="#">Sportswear</a></li>
+        <li><a href="#">Yoga & Meditation</a></li>
+        <li><a href="#">Gym Accessories</a></li>
+        <li><a href="#">Personal Care</a></li>
+      </ul>
     </div>
     <div class="col-1">
-      <i class="fas fa-music fa-3x text-success"></i>
+      <i id="couch" class="fas fa-couch fa-3x text-success"></i>
+      <ul id="couch-list" style="display: none">
+        <!-- Furniture -->
+        <li><a href="#">Living Room Furniture</a></li>
+        <li><a href="#">Bedroom Furniture</a></li>
+        <li><a href="#">Dining Room Furniture</a></li>
+        <li><a href="#">Home Office Furniture</a></li>
+      </ul>
     </div>
   </div>
 </div>
@@ -35,5 +106,33 @@
   <li><strong>num Users:</strong> {{ num_Users }}</li>
   <li><strong>num Users:</strong> {{ num_Users }}</li>
 </ul>
+<script>
+  $(document).ready(function () {
+    $("#tshirt").click(function () {
+      $("#tshirt-list").toggle();
+    });
+    $("#mobile").click(function () {
+      $("#mobile-list").toggle();
+    });
+    $("#laptop").click(function () {
+      $("#laptop-list").toggle();
+    });
+    $("#book").click(function () {
+      $("#book-list").toggle();
+    });
+    $("#home").click(function () {
+      $("#home-list").toggle();
+    });
+    $("#car").click(function () {
+      $("#car-list").toggle();
+    });
+    $("#heartbeat").click(function () {
+      $("#heartbeat-list").toggle();
+    });
+    $("#couch").click(function () {
+      $("#couch-list").toggle();
+    });
+  });
+</script>
 
 {% endblock %}
