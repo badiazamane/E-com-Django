@@ -1,5 +1,5 @@
 from Ecom.models import User, Product
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 
 
@@ -26,3 +26,35 @@ class addAnnouncement(generic.ListView):
         # Create any data and add it to the context
         context["some_data"] = "This is just some data"
         return context
+
+
+def create_product(request):
+    print("This message will be logged in the console.")
+    if request.method == "POST":
+        # Get form data
+        name = request.POST.get("name")
+        description = request.POST.get("description")
+        price = request.POST.get("price")
+        category = request.POST.get("category")
+        subcategory = request.POST.get("subcategory")
+
+        # Create new product object
+        product = Product(
+            name=name,
+            description=description,
+            Price=price,
+            # Assign the appropriate foreign keys
+            # For example, if you have related models User, Category, and subCategory:
+            #! Seller_ID=request.user,  # Assuming the user is authenticated
+            Categories_ID=category.objects.get(name=category),
+            subCategories_ID=subcategory.objects.get(name=subcategory),
+        )
+
+        # Save the product to the database
+        product.save()
+
+        # Redirect to a success page or perform any other desired action
+
+        return redirect("success")
+
+    return render(request, "product_list.html")
