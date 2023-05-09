@@ -3,43 +3,6 @@
 
 {% block content %}
 
-<!-- <ul>
-  <p>Announcement</p>
-  {% for product in object_list %}
-  <li>{{ product.name }}</li>
-  {% endfor %}
-</ul> -->
-<!-- <form>
-  <div class="form-group">
-    <label for="formGroupExampleInput">Name</label>
-    <input
-      type="text"
-      class="form-control"
-      id="formGroupExampleInput"
-      placeholder="Product name"
-    />
-  </div>
-  <div class="form-group">
-    <label for="formGroupExampleInput2">Description</label>
-    <input
-      type="text"
-      class="form-control"
-      id="formGroupExampleInput2"
-      placeholder="product Description"
-    />
-  </div>
-  <div class="form-group">
-    <label for="formGroupExampleInput2">Price</label>
-    <input
-      type="number"
-      id="quantity"
-      class="form-control"
-      name="price"
-      placeholder="Product price"
-    />
-  </div>
-</form> -->
-
 <form action="/products/create" method="POST" class="form">
   {% csrf_token %}
   <div>

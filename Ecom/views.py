@@ -1,4 +1,4 @@
-from Ecom.models import User, Product
+from Ecom.models import User, Product, Category, Subcategory
 from django.shortcuts import render, redirect
 from django.views import generic
 
@@ -35,26 +35,33 @@ def create_product(request):
         name = request.POST.get("name")
         description = request.POST.get("description")
         price = request.POST.get("price")
-        category = request.POST.get("category")
-        subcategory = request.POST.get("subcategory")
+        category_name = request.POST.get("category")
+        subcategory_name = request.POST.get("subcategory")
+
+        # # Get or create category object
+        category_obj, _ = Category.objects.get_or_create(name=category_name)
+
+        # # Get or create subcategory object
+        subcategory_obj, _ = Subcategory.objects.get_or_create(name=subcategory_name)
 
         # Create new product object
         product = Product(
             name=name,
             description=description,
-            Price=price,
-            # Assign the appropriate foreign keys
-            # For example, if you have related models User, Category, and subCategory:
-            #! Seller_ID=request.user,  # Assuming the user is authenticated
-            Categories_ID=category.objects.get(name=category),
-            subCategories_ID=subcategory.objects.get(name=subcategory),
+            price=price,
+            # # ...
+            categories=category_obj,
+            subcategories=subcategory_obj,
         )
 
         # Save the product to the database
         product.save()
 
         # Redirect to a success page or perform any other desired action
-
         return redirect("success")
 
     return render(request, "product_list.html")
+
+
+def success_view(request):
+    return render(request, "success.html")

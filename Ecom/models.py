@@ -41,25 +41,6 @@ class User(models.Model):
         return self.name
 
 
-class Product(models.Model):
-    """Model representing a product."""
-
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(
-        max_length=80, help_text="Enter the product name (e.g. Phone)"
-    )
-    description = models.CharField(max_length=100)
-    Price = models.IntegerField(help_text="Enter the price")
-    Seller_ID = models.ForeignKey("User", on_delete=models.RESTRICT)
-    subCategories_ID = models.ForeignKey("subCategory", on_delete=models.RESTRICT)
-    Categories_ID = models.ForeignKey("Category", on_delete=models.RESTRICT)
-    created_date = models.DateTimeField(default=timezone.now)
-
-    def __str__(self):
-        """String for representing the Model object."""
-        return self.name
-
-
 class Order(models.Model):
     """Model representing a product."""
 
@@ -77,11 +58,9 @@ class Order(models.Model):
 class Category(models.Model):
     """Model representing a product."""
 
-    id = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, help_text="Unique ID for Categories"
-    )
+    id = models.AutoField(primary_key=True)
     name = models.CharField(
-        max_length=80, help_text="Enter the category name (e.g. book)"
+        max_length=80, help_text="Enter the category name (e.g. Fashion)"
     )
     description = models.CharField(max_length=100)
 
@@ -90,18 +69,35 @@ class Category(models.Model):
         return self.name
 
 
-class subCategory(models.Model):
-    """Model representing a product."""
-
-    id = models.AutoField(primary_key=True)
+class Subcategory(models.Model):
+    category = models.ForeignKey(
+        Category, on_delete=models.RESTRICT, related_name="subcategories"
+    )
     name = models.CharField(
-        max_length=80, help_text="Enter the subcategory name (e.g. book)"
+        max_length=80, help_text="Enter the subcategory name (e.g. man clothes)"
     )
     description = models.CharField(max_length=100)
-    Categories_ID = models.ForeignKey("Category", on_delete=models.RESTRICT)
 
     def __str__(self):
-        """String for representing the Model object."""
+        return self.name
+
+
+class Product(models.Model):
+    name = models.CharField(
+        max_length=80, help_text="Enter the product name (e.g. Phone)"
+    )
+    description = models.CharField(max_length=100)
+    price = models.IntegerField(help_text="Enter the price")
+    categories = models.ForeignKey(
+        "Category", on_delete=models.RESTRICT, related_name="products"
+    )
+    subcategories = models.ForeignKey(
+        "Subcategory", on_delete=models.RESTRICT, related_name="products"
+    )
+
+    created_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
         return self.name
 
 
@@ -120,3 +116,37 @@ class Review(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return self.name
+
+
+# class Subcategory(models.Model):
+#     """Model representing a Subcategory."""
+
+#     id = models.AutoField(primary_key=True)
+#     name = models.CharField(
+#         max_length=80, help_text="Enter the subcategory name (e.g. man clothes)"
+#     )
+#     description = models.CharField(max_length=100)
+#     Categories_ID = models.ForeignKey("Category", on_delete=models.RESTRICT)
+
+#     def __str__(self):
+#         """String for representing the Model object."""
+#         return self.name
+
+
+# class Product(models.Model):
+#     """Model representing a product."""
+
+#     id = models.AutoField(primary_key=True)
+#     name = models.CharField(
+#         max_length=80, help_text="Enter the product name (e.g. Phone)"
+#     )
+#     description = models.CharField(max_length=100)
+#     Price = models.IntegerField(help_text="Enter the price")
+#     # Seller_ID = models.ForeignKey("User", on_delete=models.RESTRICT)
+#     Categories_ID = models.ForeignKey("Category", on_delete=models.RESTRICT)
+#     Subcategories = models.ForeignKey("Subcategory", on_delete=models.RESTRICT)
+#     created_date = models.DateTimeField(default=timezone.now)
+
+#     def __str__(self):
+#         """String for representing the Model object."""
+#         return self.name
