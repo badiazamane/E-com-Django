@@ -1,0 +1,35 @@
+{% extends "base_generic.html" %}
+<!-- Add additional CSS in static file -->
+
+{% block content %}
+
+<head>
+  <title>Success</title>
+</head>
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4em;
+    margin-top: 6em;
+  "
+>
+  <h1 style="display: flex; justify-content: center">
+    The product has been added successfully.
+  </h1>
+  <a
+    href="{% url 'index' %}"
+    class="btn btn-success"
+    style="
+      background-color: #b4fd96;
+      color: black;
+      padding: 15px 20px;
+      font-size: 1.2em;
+      text-align: center;
+    "
+  >
+    Return to the main page
+  </a>
+</div>
+{% endblock %}

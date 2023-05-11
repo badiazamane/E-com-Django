@@ -1,0 +1,159 @@
+{% extends "base_generic.html" %}
+<!-- Add additional CSS in static file -->
+
+{% block content %}
+
+<form
+  action="/products/create"
+  method="POST"
+  class="form"
+  enctype="multipart/form-data"
+>
+  {% csrf_token %}
+  <div>
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required />
+  </div>
+  <div>
+    <label for="description">Description</label>
+    <input type="text" id="description" name="description" required />
+  </div>
+  <div>
+    <label for="price">Price </label>
+    <input type="number" id="price" name="price" required />
+  </div>
+  <!-- <input type="text" id="subcategory" name="subcategory" required /> -->
+  <div>
+    <label for="image">Image</label>
+    <input type="file" id="image" name="image" accept="image/*" required />
+  </div>
+  <div>
+    <label for="category">Category</label>
+    <select class="form-control" name="category" id="category" required>
+      <option>Fashion</option>
+      <option>Electronics</option>
+      <option>Laptops</option>
+      <option>Books</option>
+      <option>Home</option>
+      <option>Decor</option>
+      <option>Automotive</option>
+      <option>Health & Fitness</option>
+      <option>Furniture</option>
+    </select>
+  </div>
+  <div>
+    <label for="subcategory">Subcategory</label>
+    <select class="form-control" name="subcategory" id="subcategory" required>
+      <option>Select a category first</option>
+    </select>
+  </div>
+  <button type="submit">Create Product</button>
+</form>
+
+<script>
+  // Get references to the category and subcategory select elements
+  var categorySelect = document.getElementById("category");
+  var subcategorySelect = document.getElementById("subcategory");
+
+  // Define the subcategories for each category
+  var subcategories = {
+    Fashion: [
+      "Men's Clothing",
+      "Women's Clothing",
+      "Kids' Clothing",
+      "Shoes & Footwear",
+      "Accessories",
+      "Activewear",
+    ],
+    Electronics: [
+      "Smartphones & Tablets",
+      "Computers & Laptops",
+      "Audio & Headphones",
+      "Cameras & Photography",
+      "Gaming Consoles",
+      "Home Electronics",
+    ],
+    Laptops: [
+      "Gaming Laptops",
+      "Ultrabooks",
+      "2-in-1 Laptops",
+      "Business Laptops",
+      "Student Laptops",
+      "Workstation Laptops",
+    ],
+    Books: [
+      "Fiction",
+      "Non-Fiction",
+      "Self-Help",
+      "Educational",
+      "Biographies",
+      "Children's Books",
+    ],
+    Home: [
+      "Wall Art & Paintings",
+      "Decorative Accents",
+      "Lighting",
+      "Furniture",
+      "Rugs & Carpets",
+      "Mirrors",
+    ],
+    Decor: [
+      "Wall Art & Paintings",
+      "Decorative Accents",
+      "Lighting",
+      "Furniture",
+      "Rugs & Carpets",
+      "Mirrors",
+    ],
+    Automotive: [
+      "Car Accessories",
+      "Exterior Parts",
+      "Interior Parts",
+      "Car Care Products",
+      "Electronics & Gadgets",
+      "Tools & Equipment",
+    ],
+    "Health & Fitness": [
+      "Fitness Equipment",
+      "Vitamins & Supplements",
+      "Sportswear",
+      "Yoga & Meditation",
+      "Gym Accessories",
+      "Personal Care",
+    ],
+    Furniture: [
+      "Living Room Furniture",
+      "Bedroom Furniture",
+      "Dining Room Furniture",
+      "Home Office Furniture",
+    ],
+  };
+
+  // Function to populate the subcategory select element
+  function populateSubcategories() {
+    // Get the selected category
+    var selectedCategory = categorySelect.value;
+
+    // Clear previous subcategory options
+    subcategorySelect.innerHTML = "";
+
+    // Add default option
+    var defaultOption = document.createElement("option");
+    defaultOption.text = "Select a subcategory";
+    subcategorySelect.add(defaultOption);
+
+    // Add subcategory options based on the selected category
+    var subcategoriesForCategory = subcategories[selectedCategory];
+    if (subcategoriesForCategory) {
+      subcategoriesForCategory.forEach(function (subcategory) {
+        var option = document.createElement("option");
+        option.text = subcategory;
+        subcategorySelect.add(option);
+      });
+    }
+  }
+
+  // Add event listener for the category select element
+  categorySelect.addEventListener("change", populateSubcategories);
+</script>
+{% endblock %}
