@@ -136,11 +136,14 @@ def login_user(request):
 def my_products(request):
     if request.user.is_authenticated:
         # Retrieve the products belonging to the logged-in user
-
         products = Product.objects.filter(user=request.user)
+        paginator = Paginator(products, 4)  # Show 4 products per page
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
         context = {
             "products": products,
             "username": request.user.username,
+            "page_obj": page_obj,
         }
 
         return render(request, "my_products.html", context)
