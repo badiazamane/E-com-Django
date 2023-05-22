@@ -36,6 +36,7 @@ class User(models.Model):
         help_text="Enter a User location (e.g. Stanislawa Popowskiego 1, LODZ, Poland)",
     )
     phone = models.IntegerField()
+    USERNAME_FIELD = "email"
 
     def __str__(self):
         """String for representing the Model object."""
