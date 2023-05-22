@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %} {% block content %}
+<div ">
+  <a href="{% url 'product_detail' product.id %}">
+    <div class="card">
+      <div class="row g-0">
+        <div class="col-md-12">
+          <img
+            src="{{ product.image.url }}"
+            class="img-fluid"
+            alt="Product Image"
+            style="width: 450px; height: 350px"
+          />
+        </div>
+      </div>
+      <div class="row g-0">
+        <div class="col-md-12">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ product.description }}</p>
+            <p class="card-text">Price: ${{ product.price }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+<form method="POST">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-success" style="background-color: #b4fd96; color: black; padding: 15px 20px; font-size: 1.2em; text-align: center; display: flex; justify-content: center">
+    Buy the product
+  </button>
+</form>
+{% endblock %}

@@ -1,4 +1,4 @@
-from Ecom.models import User, Product, Category, Subcategory
+from Ecom.models import User, Product, Category, Subcategory, PurchaseHistory
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.contrib.auth import authenticate, login
@@ -6,6 +6,7 @@ from .forms import UserRegistrationForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.shortcuts import render, get_object_or_404  # n
 
 
 def index(request):
@@ -150,3 +151,20 @@ def my_products(request):
     else:
         # User is not authenticated, redirect to login page or handle the case accordingly
         return redirect("login")
+
+
+# def product_detail_view(request, product_id):
+#     product = get_object_or_404(Product, id=product_id)
+#     context = {"product": product}
+#     return render(request, "product_details.html", context)
+
+
+class ProductDetailView(generic.DetailView):
+    model = Product
+    template_name = "Ecom/product_details.html"
+
+    def post(self, request, *args, **kwargs):
+        product = self.get_object()
+        PurchaseHistory.objects.create(user=request.user, product=product)
+        product.delete()
+        return redirect("Ecom/product_list")
