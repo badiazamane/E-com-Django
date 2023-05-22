@@ -7,8 +7,6 @@
 <div class="container">
   <div class="row">
     <div class="col-1">
-      <!-- Fashions-->
-
       <i id="tshirt" class="fas fa-tshirt fa-3x text-primary"></i>
       <ul id="tshirt-list" style="display: none">
         <li><a href="#">Men's Clothing</a></li>
@@ -103,11 +101,47 @@
     </div>
   </div>
 </div>
-<ul>
+
+<!-- <ul>
   <li><strong>num Users:</strong> {{ num_Users }}</li>
   <li><strong>num Users:</strong> {{ num_Users }}</li>
   <li><strong>num Users:</strong> {{ num_Users }}</li>
-</ul>
+</ul> -->
+<!-- <ul>
+  {% for product in products %}
+  <li>{{ product.name}}</li>
+  <li>{{ product.price}}</li>
+  {% endfor %}
+</ul> -->
+
+<div class="container">
+  <div class="row">
+    {% for product in products %}
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img
+              src="{{ product.image.url }}"
+              class="img-fluid"
+              alt="Product Image"
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">{{ product.description }}</p>
+              <p class="card-text">Price: ${{ product.price }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+>>>>>>> f1
 <script>
   $(document).ready(function () {
     $("#tshirt").click(function () {
@@ -145,3 +179,5 @@
   You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.
 </p>
 {% endif %} {% endblock %} -->
+
+{% endblock %}
