@@ -13,6 +13,10 @@
   padding-left: 1em;
   text-decoration: none !important;
 }
+.form-control-div {
+  display: flex;
+  flex-direction: column;
+}
 .col-sm-10 {
   margin: auto;
   padding-top: 3em;
@@ -46,5 +50,7 @@ a {
 .form {
   display: flex;
   flex-direction: column;
-  gap: 2em;
+  gap: 1em;
+  width: 70%;
+  margin: auto;
 }

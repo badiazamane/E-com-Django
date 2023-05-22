@@ -2,8 +2,9 @@ from django.db import models
 
 # Used to generate URLs by reversing the URL patterns
 from django.urls import reverse
-import uuid  # Required for unique book instances
+import uuid  # Required for unique  instances
 from django.contrib.auth.models import User
+
 from datetime import date
 from django.core.validators import RegexValidator
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -88,7 +89,7 @@ class Product(models.Model):
     name = models.CharField(
         max_length=80, help_text="Enter the product name (e.g. Phone)"
     )
-    description = models.CharField(max_length=100)
+    description = models.TextField(max_length=1000)
     price = models.IntegerField(help_text="Enter the price")
     categories = models.ForeignKey(
         "Category", on_delete=models.RESTRICT, related_name="products"
@@ -96,6 +97,8 @@ class Product(models.Model):
     subcategories = models.ForeignKey(
         "Subcategory", on_delete=models.RESTRICT, related_name="products"
     )
+    user = models.ForeignKey("User", on_delete=models.RESTRICT, related_name="products")
+
     image = models.ImageField(upload_to="product_images/", null=True, blank=True)
 
     created_date = models.DateTimeField(default=timezone.now)

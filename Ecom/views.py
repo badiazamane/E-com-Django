@@ -56,9 +56,9 @@ def create_product(request):
         price = request.POST.get("price")
         category_name = request.POST.get("category")
         subcategory_name = request.POST.get("subcategory")
-
+        user_id = request.POST.get("user")
         image = request.FILES.get("image")
-        print(image)
+        print(user_id)
 
         # # Get or create category object
         category_obj, _ = Category.objects.get_or_create(name=category_name)
