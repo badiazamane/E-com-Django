@@ -1,4 +1,4 @@
-from Ecom.models import User, Product, Category, Subcategory
+from Ecom.models import User, Product, Category, Subcategory, Order
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.contrib.auth import authenticate, login
@@ -133,3 +133,14 @@ def product_detail_view(request, product_id):
         'product': product
     }
     return render(request, 'product_details.html', context)
+
+#n
+def order_view(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    price = product.price
+    context = {
+        'product': product,
+        'price': price
+    }
+    return render(request, 'order.html', context)
+
