@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from .forms import UserRegistrationForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 def index(request):
@@ -25,13 +26,20 @@ def index(request):
         "num_Users": num_Users,
         "num_visits": num_visits,
     }
-
-    # Get all products
     products = Product.objects.all()
+
+    paginator = Paginator(products, 4)  # Show 6 products per page
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    # context = {"page_obj": page_obj}
+    # # Get all products
+    # products = Product.objects.all()
 
     context = {
         "products": products,
         "username": request.user.username,
+        "page_obj": page_obj,
     }
 
     # Render the HTML template index.html with the data in the context variable
@@ -45,7 +53,7 @@ class addAnnouncement(generic.ListView):
         # Call the base implementation first to get the context
         context = super(addAnnouncement, self).get_context_data(**kwargs)
         # Create any data and add it to the context
-        context["some_data"] = "This is just some data"
+        context["username"] = self.request.user.username
         return context
 
 
@@ -123,3 +131,19 @@ def login_user(request):
         form = LoginForm()
 
     return render(request, "registration/login.html", {"form": form})
+
+
+def my_products(request):
+    if request.user.is_authenticated:
+        # Retrieve the products belonging to the logged-in user
+
+        products = Product.objects.filter(user=request.user)
+        context = {
+            "products": products,
+            "username": request.user.username,
+        }
+
+        return render(request, "my_products.html", context)
+    else:
+        # User is not authenticated, redirect to login page or handle the case accordingly
+        return redirect("login")

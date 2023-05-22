@@ -114,7 +114,7 @@
   {% endfor %}
 </ul> -->
 
-<div class="container">
+<!-- <div class="container">
   <div class="row">
     {% for product in products %}
     <div class="col-md-6 mb-4">
@@ -139,8 +139,51 @@
     </div>
     {% endfor %}
   </div>
+</div> -->
+
+<div class="container">
+  <div class="row">
+    {% for product in page_obj %}
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img
+              src="{{ product.image.url }}"
+              class="img-fluid"
+              alt="Product Image"
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">{{ product.description }}</p>
+              <p class="card-text">Price: ${{ product.price }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
 </div>
 
+<!-- Pagination links -->
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+    <a href="?page=1">&laquo; first</a>
+    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current-page">{{ page_obj.number }}</span>
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">next</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
 <script>
   $(document).ready(function () {
     $("#tshirt").click(function () {
