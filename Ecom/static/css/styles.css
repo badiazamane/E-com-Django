@@ -54,3 +54,7 @@ a {
   width: 70%;
   margin: auto;
 }
+.btns_side {
+  display: flex;
+  gap: 2em;
+}

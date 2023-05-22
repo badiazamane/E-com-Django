@@ -1,10 +1,10 @@
 from Ecom.models import User, Product, Category, Subcategory
 from django.shortcuts import render, redirect
 from django.views import generic
-
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from .forms import UserRegistrationForm, LoginForm
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -31,6 +31,7 @@ def index(request):
 
     context = {
         "products": products,
+        "username": request.user.username,
     }
 
     # Render the HTML template index.html with the data in the context variable
@@ -48,6 +49,7 @@ class addAnnouncement(generic.ListView):
         return context
 
 
+@login_required
 def create_product(request):
     print("This message will be logged in the console.")
 
@@ -58,7 +60,7 @@ def create_product(request):
         price = request.POST.get("price")
         category_name = request.POST.get("category")
         subcategory_name = request.POST.get("subcategory")
-        user_id = request.POST.get("user")
+        user_id = request.user.id
         image = request.FILES.get("image")
         print(user_id)
 
@@ -76,6 +78,7 @@ def create_product(request):
             # # ...
             categories=category_obj,
             subcategories=subcategory_obj,
+            user_id=request.user.id,
             image=image,
         )
 
@@ -101,7 +104,7 @@ def register_user(request):
     else:
         form = UserRegistrationForm()
 
-    return render(request, "register.html", {"form": form})
+    return render(request, "registration/register.html", {"form": form})
 
 
 def login_user(request):
@@ -114,9 +117,9 @@ def login_user(request):
             if user is not None:
                 login(request, user)
                 return redirect(
-                    "home"
+                    "index"
                 )  # Redirect to the home page or any other desired page
     else:
         form = LoginForm()
 
-    return render(request, "login.html", {"form": form})
+    return render(request, "registration/login.html", {"form": form})
