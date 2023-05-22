@@ -118,6 +118,7 @@
   <div class="row">
     {% for product in products %}
     <div class="col-md-6 mb-4">
+      <a href="{% url 'product_detail' product.id %}"></a>
       <div class="card">
         <div class="row g-0">
           <div class="col-md-4">
@@ -136,6 +137,7 @@
           </div>
         </div>
       </div>
+    </a>
     </div>
     {% endfor %}
   </div>
