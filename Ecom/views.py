@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from .forms import UserRegistrationForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404 #n
 
 
 def index(request):
@@ -123,3 +124,12 @@ def login_user(request):
         form = LoginForm()
 
     return render(request, "registration/login.html", {"form": form})
+
+
+#n
+def product_detail_view(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    context = {
+        'product': product
+    }
+    return render(request, 'product_details.html', context)
