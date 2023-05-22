@@ -147,29 +147,55 @@
   $(document).ready(function () {
     $("#tshirt").click(function () {
       $("#tshirt-list").toggle();
+      hideAllExcept("tshirt");
     });
     $("#mobile").click(function () {
       $("#mobile-list").toggle();
+      hideAllExcept("mobile");
     });
     $("#laptop").click(function () {
       $("#laptop-list").toggle();
+      hideAllExcept("laptop");
     });
     $("#book").click(function () {
       $("#book-list").toggle();
+      hideAllExcept("book");
     });
     $("#home").click(function () {
       $("#home-list").toggle();
+      hideAllExcept("home");
     });
     $("#car").click(function () {
       $("#car-list").toggle();
+      hideAllExcept("car");
     });
     $("#heartbeat").click(function () {
       $("#heartbeat-list").toggle();
+      hideAllExcept("heartbeat");
     });
     $("#couch").click(function () {
       $("#couch-list").toggle();
+      hideAllExcept("couch");
     });
   });
+
+  function hideAllExcept(clickedId) {
+    var ids = [
+      "tshirt",
+      "mobile",
+      "laptop",
+      "book",
+      "home",
+      "car",
+      "heartbeat",
+      "couch",
+    ];
+    for (var i = 0; i < ids.length; i++) {
+      if (ids[i] !== clickedId) {
+        $("#" + ids[i] + "-list").hide();
+      }
+    }
+  }
 </script>
 
 <!-- <p>
