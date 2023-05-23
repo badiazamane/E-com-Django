@@ -3,7 +3,12 @@
 
 {% block content %}
 
-<form method="POST" class="form" enctype="multipart/form-data">
+<form
+  method="POST"
+  class="form"
+  enctype="multipart/form-data"
+  action="{% url 'create_product' %}"
+>
   {% csrf_token %}
   <div class="form-control-div">
     <label for="name">Name</label>

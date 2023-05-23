@@ -1,23 +1,26 @@
 {% extends "base_generic.html" %} {% block content %}
 <div class="container">
   <div class="row">
-    {% for product in products %}
+    {% for purchase in PurchaseHistoryProduct %}
     <div class="col-md-6 mb-4">
       <div class="card">
         <div class="row g-0">
           <div class="col-md-4">
             <img
-              src="{{ product.image.url }}"
+              src="{{ purchase.product.image.url }}"
               class="img-fluid"
               alt="Product Image"
             />
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">{{ product.name }}</h5>
-              <p class="card-text">{{ product.description }}</p>
-              <p class="card-text">Price: ${{ product.price }}</p>
+              <h5 class="card-title">{{ purchase.product.name }}</h5>
+              <p class="card-text">{{ purchase.product.description }}</p>
+              <p class="card-text">Price: ${{ purchase.product.price }}</p>
             </div>
+            <p class="card-text">
+              Price: ${{ purchase.product.purchase_date }}
+            </p>
           </div>
         </div>
       </div>

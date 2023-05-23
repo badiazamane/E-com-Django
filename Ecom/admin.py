@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 # from django.contrib.auth.models import User
 
 # Register your models here.
-from .models import Product, Order, Category, Subcategory, Review
+from .models import Product, Category, Subcategory, PurchaseHistory
 
 
 # Register the admin class with the associated model
@@ -17,7 +17,6 @@ from .models import Product, Order, Category, Subcategory, Review
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Product)
-admin.site.register(Order)
 admin.site.register(Category)
 admin.site.register(Subcategory)
-admin.site.register(Review)
+admin.site.register(PurchaseHistory)

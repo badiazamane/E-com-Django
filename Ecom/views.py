@@ -6,6 +6,7 @@ from .forms import UserRegistrationForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.shortcuts import render, get_object_or_404  # n
 
 
 def index(request):
@@ -26,7 +27,7 @@ def index(request):
         "num_Users": num_Users,
         "num_visits": num_visits,
     }
-    products = Product.objects.all()
+    products = Product.objects.filter(is_active=True)
 
     paginator = Paginator(products, 4)  # Show 6 products per page
     page_number = request.GET.get("page")
@@ -152,18 +153,59 @@ def my_products(request):
         return redirect("login")
 
 
-# def product_detail_view(request, product_id):
-#     product = get_object_or_404(Product, id=product_id)
-#     context = {"product": product}
-#     return render(request, "product_details.html", context)
+def my_history(request):
+    if request.user.is_authenticated:
+        # Retrieve the products belonging to the logged-in user
+        PurchaseHistoryProduct = PurchaseHistory.objects.filter(user=request.user)
+        paginator = Paginator(PurchaseHistoryProduct, 4)  # Show 4 products per page
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+        context = {
+            "PurchaseHistoryProduct": PurchaseHistoryProduct,
+            "username": request.user.username,
+            "page_obj": page_obj,
+        }
+
+        return render(request, "my_history.html", context)
+    else:
+        # User is not authenticated, redirect to login page or handle the case accordingly
+        return redirect("login")
 
 
-class ProductDetailView(generic.DetailView):
-    model = Product
-    template_name = "Ecom/product_details.html"
+def product_detail_view(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    context = {"product": product}
+    return render(request, "Ecom/product_details.html", context)
 
-    def post(self, request, *args, **kwargs):
-        product = self.get_object()
+
+# class ProductDetailView(generic.DetailView):
+#     model = Product
+#     template_name = "Ecom/product_details.html"
+#     print("im here")
+
+
+#     def post(self, request, *args, **kwargs):
+#         print("im here2")
+#         product = self.get_object()
+#         PurchaseHistory.objects.create(user=request.user, product=product)
+#         product.delete()
+#         product.save()
+#         return redirect("Ecom/product_list")
+# class PurchaseProductView(generic.View):
+#     def post(self, request, *args, **kwargs):
+#         print("im here2")
+#         product = get_object_or_404(Product, id=self.kwargs["pk"])
+#         PurchaseHistory.objects.create(user=request.user, product=product)
+#         product.delete()
+#         return redirect("Ecom/product_list")
+@login_required
+def purchase_product(request, product_id):
+    if request.method == "POST":
+        product = get_object_or_404(Product, id=product_id)
         PurchaseHistory.objects.create(user=request.user, product=product)
-        product.delete()
-        return redirect("Ecom/product_list")
+        product.is_active = False
+        product.save()
+        # Redirect to the appropriate page after the purchase
+        return redirect("index")
+
+    return render(request, "purchase_product.html", {"product_id": product_id})

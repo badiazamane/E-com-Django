@@ -1,6 +1,5 @@
 {% extends "base_generic.html" %} {% block content %}
 <div ">
-  <a href="{% url 'product_detail' product.id %}">
     <div class="card">
       <div class="row g-0">
         <div class="col-md-12">
@@ -22,10 +21,11 @@
         </div>
       </div>
     </div>
-  </a>
 </div>
+<form method="POST" action="{% url 'purchase_product' product.pk %}">
+
   {% csrf_token %}
-  <button type="submit" class="btn btn-success" style="background-color: #b4fd96; color: black; padding: 15px 20px; font-size: 1.2em; text-align: center; display: flex; justify-content: center">
+  <button type="submit" class="btn btn-success" action="{% url 'product_detail' product.pk %}"style="background-color: #b4fd96; color: black; padding: 15px 20px; font-size: 1.2em; text-align: center; display: flex; justify-content: center">
     Buy the product
   </button>
 </form>
