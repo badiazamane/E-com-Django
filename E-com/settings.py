@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-jn8^&dlwfba!&%@p@b)$j-_zrjrh5viyrl&%jl2ql4#*l2vyju"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["ecom-acadimic-webapp.azurewebsites.net"]
 
