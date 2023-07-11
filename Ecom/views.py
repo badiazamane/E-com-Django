@@ -12,30 +12,11 @@ from django.shortcuts import render, get_object_or_404  # n
 def index(request):
     """View function for home page of site."""
 
-    # Generate counts of some of the main objects
-    num_Users = User.objects.all().count()
-    num_visits = request.session.get("num_visits", 0)
-
-    request.session.set_test_cookie()
-    if request.session.test_cookie_worked():
-        request.session.delete_test_cookie()
-        num_visits = request.session.get("num_visits", 0)
-        request.session["num_visits"] = num_visits + 1
-    else:
-        num_visits = -1
-    context = {
-        "num_Users": num_Users,
-        "num_visits": num_visits,
-    }
     products = Product.objects.filter(is_active=True)
 
     paginator = Paginator(products, 4)  # Show 6 products per page
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-
-    # context = {"page_obj": page_obj}
-    # # Get all products
-    # products = Product.objects.all()
 
     context = {
         "products": products,
@@ -84,7 +65,6 @@ def create_product(request):
             name=name,
             description=description,
             price=price,
-            # # ...
             categories=category_obj,
             subcategories=subcategory_obj,
             user_id=request.user.id,
@@ -178,26 +158,6 @@ def product_detail_view(request, product_id):
     return render(request, "Ecom/product_details.html", context)
 
 
-# class ProductDetailView(generic.DetailView):
-#     model = Product
-#     template_name = "Ecom/product_details.html"
-#     print("im here")
-
-
-#     def post(self, request, *args, **kwargs):
-#         print("im here2")
-#         product = self.get_object()
-#         PurchaseHistory.objects.create(user=request.user, product=product)
-#         product.delete()
-#         product.save()
-#         return redirect("Ecom/product_list")
-# class PurchaseProductView(generic.View):
-#     def post(self, request, *args, **kwargs):
-#         print("im here2")
-#         product = get_object_or_404(Product, id=self.kwargs["pk"])
-#         PurchaseHistory.objects.create(user=request.user, product=product)
-#         product.delete()
-#         return redirect("Ecom/product_list")
 @login_required
 def purchase_product(request, product_id):
     if request.method == "POST":
@@ -209,3 +169,7 @@ def purchase_product(request, product_id):
         return redirect("index")
 
     return render(request, "purchase_product.html", {"product_id": product_id})
+
+
+def about_us(request):
+    return render(request, "about_us.html")
